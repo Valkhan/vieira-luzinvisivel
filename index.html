@@ -66,9 +66,15 @@
     }
 
     #logo {
-      width: min(52vw, 72vh);
+      width: 72vw;
       aspect-ratio: 670 / 740;
       display: block;
+    }
+
+    @media (min-aspect-ratio: 1/1) {
+      #logo {
+        width: 72vh;
+      }
     }
 
     @keyframes fadeIn {
