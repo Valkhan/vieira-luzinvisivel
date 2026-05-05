@@ -102,9 +102,40 @@
 
   <script>
     (() => {
-      /* ── Sorteio de categoria ── */
-      const categorias = ['etereo', 'mineral', 'pele'];
-      const categoria  = categorias[Math.floor(Math.random() * categorias.length)];
+      /* ── Todas as 9 imagens de fundo ── */
+      const todasImagens = [
+        'img/fundos/ali_tapume_etereo_01.jpg',
+        'img/fundos/ali_tapume_etereo_02.jpg',
+        'img/fundos/ali_tapume_etereo_03.jpg',
+        'img/fundos/ali_tapume_mineral_01.jpg',
+        'img/fundos/ali_tapume_mineral_02.jpg',
+        'img/fundos/ali_tapume_mineral_03.jpg',
+        'img/fundos/ali_tapume_pele_01.jpg',
+        'img/fundos/ali_tapume_pele_02.jpg',
+        'img/fundos/ali_tapume_pele_03.jpg',
+      ];
+
+      /* Fisher-Yates */
+      function embaralhar(arr) {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+      }
+
+      /* Fila com re-embaralhamento automático ao esgotar */
+      let fila = embaralhar(todasImagens);
+      let cursor = 0;
+
+      function proximaImagem() {
+        if (cursor >= fila.length) {
+          fila = embaralhar(todasImagens);
+          cursor = 0;
+        }
+        return fila[cursor++];
+      }
 
       /* ── Posições aleatórias para object-position ── */
       const posicoes = [
@@ -117,31 +148,36 @@
         return posicoes[Math.floor(Math.random() * posicoes.length)];
       }
 
-      /* ── Embaralha ordem das 3 imagens ── */
-      const ordem = [1, 2, 3].sort(() => Math.random() - 0.5);
+      /* ── Inicializa os 3 slides com as primeiras imagens da fila ── */
       const slides = document.querySelectorAll('.slide');
 
-      slides.forEach((slide, i) => {
+      slides.forEach(slide => {
         const img = slide.querySelector('img');
-        img.src = `img/fundos/ali_tapume_${categoria}_0${ordem[i]}.jpg`;
+        img.src = proximaImagem();
         img.style.objectPosition = posAleatoria();
       });
 
-      /* ── Inicia o carrossel após o fadeIn da identidade ── */
+      /* ── Carrossel ── */
       let atual = 0;
 
       setTimeout(() => {
         slides[atual].classList.add('active');
 
         setInterval(() => {
-          slides[atual].classList.remove('active');
+          const anterior = atual;
+          slides[anterior].classList.remove('active');
           atual = (atual + 1) % slides.length;
-
-          /* Nova posição aleatória a cada entrada */
           slides[atual].querySelector('img').style.objectPosition = posAleatoria();
           slides[atual].classList.add('active');
+
+          /* Recarrega o slot que acabou de sair com a próxima da fila */
+          setTimeout(() => {
+            const img = slides[anterior].querySelector('img');
+            img.src = proximaImagem();
+            img.style.objectPosition = posAleatoria();
+          }, 1500);
         }, 3000);
-      }, 300); /* fundo preto mínimo (~0.3s) — carrossel entra antes do fadeIn terminar */
+      }, 300);
     })();
   </script>
 
