@@ -2,8 +2,87 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ali Tapume</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+  <!-- ─── SEO ─── -->
+  <title>Ali Tapume | a luz invisível</title>
+  <meta name="description" content="De cenas cinematográficas e filmes completos à cenografia para espetáculos. Fotografia publicitária, artística ou editorial; avatares, videoclipes e fashion films; projetos arquitetônicos, conteúdos para games e mundos virtuais. É tudo IA, mas não se vê.">
+  <meta name="keywords" content="a luz invisível, ali tapume, inteligência artificial, IA, fotografia publicitária, cinema, cenografia, avatares, videoclipes, fashion films, projetos arquitetônicos, games, mundos virtuais">
+  <meta name="author" content="a luz invisível">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://valkhan.github.io/">
+
+  <!-- ─── GEO ─── -->
+  <meta name="geo.region" content="BR">
+  <meta name="geo.placename" content="Brasil">
+
+  <!-- ─── Open Graph ─── -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="a luz invisível">
+  <meta property="og:title" content="Ali Tapume | a luz invisível">
+  <meta property="og:description" content="De cenas cinematográficas e filmes completos à cenografia para espetáculos. É tudo IA, mas não se vê. Manda um alô: alo@luzinvisivel.com">
+  <meta property="og:url" content="https://valkhan.github.io/">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:image" content="https://valkhan.github.io/img/ali_opengraphs_full.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Ali Tapume — a luz invisível">
+  <meta property="og:image" content="https://valkhan.github.io/img/ali_opengraphs_600x600.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="600">
+  <meta property="og:image:height" content="600">
+  <meta property="og:image:alt" content="Ali Tapume — a luz invisível">
+
+  <!-- ─── Twitter / X Card ─── -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ali Tapume | a luz invisível">
+  <meta name="twitter:description" content="De cenas cinematográficas e filmes completos à cenografia para espetáculos. É tudo IA, mas não se vê.">
+  <meta name="twitter:image" content="https://valkhan.github.io/img/ali_opengraphs_full.jpg">
+  <meta name="twitter:image:alt" content="Ali Tapume — a luz invisível">
+
+  <!-- ─── Favicons ─── -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#000000">
+  <meta name="msapplication-TileColor" content="#000000">
+
+  <!-- ─── JSON-LD (SEO + GEO para motores de IA) ─── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "a luz invisível",
+    "alternateName": "aluzinvisivel",
+    "url": "https://valkhan.github.io/",
+    "logo": "https://valkhan.github.io/img/pensando_tapume_info.png",
+    "image": "https://valkhan.github.io/img/ali_opengraphs_full.jpg",
+    "email": "alo@luzinvisivel.com",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "email": "alo@luzinvisivel.com",
+      "contactType": "sales"
+    },
+    "description": "De cenas cinematográficas e filmes completos à cenografia para espetáculos. Passando por fotografia publicitária, artística ou editorial; avatares, videoclipes e fashion films; projetos arquitetônicos, conteúdos para games e mundos virtuais. É tudo IA, mas não se vê.",
+    "knowsAbout": [
+      "Inteligência Artificial Generativa",
+      "Fotografia Publicitária",
+      "Cenografia",
+      "Cinema",
+      "Avatares Digitais",
+      "Videoclipes",
+      "Fashion Films",
+      "Projetos Arquitetônicos",
+      "Games e Mundos Virtuais"
+    ],
+    "areaServed": "BR",
+    "inLanguage": "pt-BR"
+  }
+  </script>
+
   <style>
     *, *::before, *::after {
       margin: 0;
@@ -14,7 +93,12 @@
     html, body {
       width: 100%;
       height: 100%;
+      /* dvh adapta ao toolbar dinâmico do Chrome/Safari mobile */
+      min-height: 100vh;
+      min-height: 100dvh;
       overflow: hidden;
+      /* impede rubber-band scroll que expõe o fundo preto */
+      overscroll-behavior: none;
       background: #000;
     }
 
