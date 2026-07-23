@@ -35,6 +35,7 @@ body {
   height: 100%;
   object-fit: cover;
   display: block;
+  transition: opacity 0.8s ease;
 }
 
 #play-button {
@@ -87,8 +88,38 @@ body {
   max-width: calc(100vw - 33.85417vw);
   aspect-ratio: 203 / 150;
   display: block;
+}
+
+/*
+ * O clique só deve funcionar quando a logo está de fato visível.
+ * pointer-events:auto direto em #hero-logo (independente do wrapper)
+ * fazia o clique "vazar" mesmo com opacidade 0, reiniciando o vídeo
+ * prematuramente — por isso fica restrito a este seletor.
+ */
+#logo-wrapper.visible #hero-logo {
   pointer-events: auto;
   cursor: pointer;
+}
+
+/* ─── HERO EM DISPOSITIVOS TOUCH (MOBILE) ─── */
+@media (hover: none) and (pointer: coarse) {
+  #hero.is-playing {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Durante a reprodução: vídeo por inteiro (sem corte), largura 100%,
+     mantido mesmo após rotacionar o aparelho. */
+  #hero.is-playing #hero-video {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  #hero-video.video-dimmed {
+    opacity: 0.5;
+  }
 }
 
 /* ─── SEÇÃO 2 — CONTATO ─── */
@@ -164,7 +195,7 @@ body {
   z-index: 2;
   width: 100%;
   max-width: 900px;
-  margin-top: 35.46296vh; /* 383px em relação a 1080px */
+  margin-top: 24.53704vh; /* 265px em relação a 1080px */
 }
 
 #contact-form {
