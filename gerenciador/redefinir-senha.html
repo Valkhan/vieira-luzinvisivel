@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Redefinir senha | Gerenciador — a luz invisível</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/gerenciador.css">
+</head>
+<body>
+
+  <div class="login-screen">
+    <div class="login-box">
+      <img src="../img/logo-branco.svg" alt="a luz invisível">
+      <h1>Redefinir senha</h1>
+
+      <form id="reset-form" novalidate>
+        <input type="password" name="senha" placeholder="Nova senha" autocomplete="new-password" required minlength="6">
+        <input type="password" name="senha2" placeholder="Confirmar nova senha" autocomplete="new-password" required minlength="6">
+        <p class="login-error" id="reset-error"></p>
+        <p class="login-success" id="reset-success"></p>
+        <button type="submit">Salvar nova senha</button>
+        <a class="login-link" href="index.html">Voltar ao login</a>
+      </form>
+    </div>
+  </div>
+
+  <script src="../js/data/portfolio-data.js"></script>
+  <script src="js/api.js"></script>
+  <script>
+    const form = document.getElementById('reset-form');
+    const errorEl = document.getElementById('reset-error');
+    const successEl = document.getElementById('reset-success');
+    const token = new URLSearchParams(window.location.search).get('token');
+
+    if (!token) {
+      errorEl.textContent = 'Link de redefinição inválido.';
+      form.querySelector('button').disabled = true;
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      errorEl.textContent = '';
+      successEl.textContent = '';
+
+      if (form.senha.value !== form.senha2.value) {
+        errorEl.textContent = 'As senhas não coincidem.';
+        return;
+      }
+
+      try {
+        Api.resetPassword(token, form.senha.value);
+        successEl.textContent = 'Senha redefinida com sucesso. Redirecionando...';
+        setTimeout(() => { window.location.href = 'index.html'; }, 1500);
+      } catch (err) {
+        errorEl.textContent = err.message;
+      }
+    });
+  </script>
+
+</body>
+</html>

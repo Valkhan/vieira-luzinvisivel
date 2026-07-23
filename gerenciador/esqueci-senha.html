@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Recuperar senha | Gerenciador — a luz invisível</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/gerenciador.css">
+</head>
+<body>
+
+  <div class="login-screen">
+    <div class="login-box">
+      <img src="../img/logo-branco.svg" alt="a luz invisível">
+      <h1>Recuperar senha</h1>
+
+      <form id="reset-request-form" novalidate>
+        <input type="email" name="email" placeholder="E-mail" autocomplete="username" required>
+        <p class="login-error" id="reset-error"></p>
+        <p class="login-success" id="reset-success"></p>
+        <button type="submit">Enviar instruções</button>
+        <a class="login-link" href="index.html">Voltar ao login</a>
+      </form>
+
+      <!--
+        Placeholder: sem backend PHP ainda, o "envio" abaixo apenas gera o
+        link de redefinição localmente para permitir testar o fluxo.
+        Quando existir php/gerenciador/esqueci-senha.php + Resend, este
+        bloco deixa de aparecer — o link vai só para o e-mail do usuário.
+      -->
+      <p class="login-hint" id="reset-demo-link" style="display:none;"></p>
+    </div>
+  </div>
+
+  <script src="../js/data/portfolio-data.js"></script>
+  <script src="js/api.js"></script>
+  <script>
+    const form = document.getElementById('reset-request-form');
+    const errorEl = document.getElementById('reset-error');
+    const successEl = document.getElementById('reset-success');
+    const demoLinkEl = document.getElementById('reset-demo-link');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      errorEl.textContent = '';
+      successEl.textContent = '';
+      demoLinkEl.style.display = 'none';
+
+      const email = form.email.value.trim();
+      if (!email) return;
+
+      const resultado = Api.requestPasswordReset(email);
+
+      successEl.textContent = 'Se o e-mail existir em nossa base, enviaremos as instruções de redefinição.';
+
+      if (resultado.token) {
+        const url = `redefinir-senha.html?token=${resultado.token}`;
+        demoLinkEl.innerHTML = `Modo demonstração (sem envio real de e-mail ainda): <a class="login-link" style="display:inline" href="${url}">abrir link de redefinição</a>.`;
+        demoLinkEl.style.display = 'block';
+      }
+    });
+  </script>
+
+</body>
+</html>
