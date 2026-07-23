@@ -1,2 +1,4 @@
 
 /php/config.php
+/uploads/galeria/*
+!/uploads/galeria/.gitkeep

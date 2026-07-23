@@ -4,10 +4,6 @@
   box-sizing: border-box;
 }
 
-html {
-  scroll-snap-type: y proximity;
-}
-
 html, body {
   width: 100%;
   background: #000;
@@ -27,7 +23,6 @@ body {
   height: 100dvh;
   overflow: hidden;
   background: #000;
-  scroll-snap-align: start;
 }
 
 #hero-video {
@@ -91,20 +86,8 @@ body {
   cursor: pointer;
 }
 
-/* ─── SEÇÃO 2 — CONTATO ─── */
-#contato {
-  position: relative;
-  min-height: 100vh;
-  min-height: 100dvh;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0 6vw 4vh;
-  scroll-snap-align: start;
-}
-
-#contato-top-bar {
+/* ─── BARRA DIVISORA / TÍTULO DE SEÇÃO (compartilhado) ─── */
+.section-top-bar {
   position: relative;
   z-index: 2;
   width: calc(100% + 12vw);
@@ -115,6 +98,220 @@ body {
   align-items: center;
   padding: 0;
   margin: 0 -6vw;
+}
+
+.section-heading {
+  color: #000;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: clamp(1.5rem, 3.2vw, 2.5rem);
+  letter-spacing: 0;
+  text-transform: uppercase;
+  font-weight: 900;
+  margin-left: 5.20833vw; /* 100px em relação a 1920px */
+}
+
+/* ─── SEÇÃO — DESTAQUES ─── */
+#destaques {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 6vw 6vh;
+  background: #000;
+}
+
+#destaques-grid {
+  position: relative;
+  width: calc(100% + 12vw);
+  margin: 9.16667vh -6vw 0; /* 99px em relação a 1080px */
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0;
+}
+
+.destaque-card {
+  grid-column: span 3;
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+}
+
+.destaque-card.destaque-card--sm {
+  grid-column: span 2;
+}
+
+.destaque-card-media {
+  position: relative;
+  aspect-ratio: 959.5 / 640;
+  overflow: hidden;
+  background: #999;
+}
+
+.destaque-card--sm .destaque-card-media {
+  aspect-ratio: 640 / 427;
+}
+
+.destaque-card-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.55;
+}
+
+.destaque-card-label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.1rem, 2vw, 1.8rem);
+  text-transform: uppercase;
+  color: #fff;
+  opacity: 0.85;
+}
+
+.destaque-card-caption {
+  background: #000;
+  color: #fff;
+  padding: 1.4rem 1.6rem 1.4rem 5.20833vw; /* 100px em relação a 1920px, igual ao título "Destaques" */
+}
+
+.destaque-card-caption h3 {
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.destaque-card-caption p {
+  font-size: 0.8rem;
+  color: #ccc;
+  line-height: 1.5;
+  text-align: justify;
+}
+
+@media (max-width: 900px) {
+  #destaques-grid {
+    grid-template-columns: 1fr;
+  }
+  .destaque-card,
+  .destaque-card.destaque-card--sm {
+    grid-column: span 1;
+  }
+}
+
+/* ─── SEÇÃO — CATEGORIAS ─── */
+#categorias {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 6vw 6vh;
+  background: #000;
+}
+
+#categorias-list {
+  position: relative;
+  width: 100%;
+  max-width: 1600px;
+  margin-top: 3vh;
+}
+
+.categoria-item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.categoria-item-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.9rem 0;
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.1rem, 2.4vw, 1.6rem);
+  text-transform: uppercase;
+  color: #666;
+  transition: color 0.25s ease;
+}
+
+.categoria-item-header:hover {
+  color: #ccc;
+}
+
+.categoria-item.active .categoria-item-header {
+  color: #fff;
+}
+
+.categoria-item-header .close-icon {
+  display: none;
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+
+.categoria-item.active .categoria-item-header .close-icon {
+  display: block;
+}
+
+.categoria-item-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+.categoria-item.active .categoria-item-panel {
+  max-height: 2000px;
+}
+
+.categoria-item-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  padding: 1rem 0 2rem;
+}
+
+.categoria-item-gallery figure img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  background: #222;
+}
+
+.categoria-item-gallery figcaption {
+  margin-top: 0.6rem;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: #aaa;
+  text-transform: uppercase;
+}
+
+@media (max-width: 900px) {
+  .categoria-item-gallery {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─── SEÇÃO — CONTATO ─── */
+#contato {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 6vw 4vh;
 }
 
 #contato-carousel {
