@@ -7,6 +7,9 @@
 
   const isTouchDevice = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
 
+  const FRAME_INICIAL = 1; // 00:01 — frame em que a vaca aparece (00:00 não serve)
+
+  let logoFadeIniciada = false;
   let logoRevelada = false;
 
   function iniciarReproducao() {
@@ -22,11 +25,23 @@
    */
   function voltarAoFrameInicial() {
     video.pause();
-    video.currentTime = 0;
+    video.currentTime = FRAME_INICIAL;
     video.play()
       .then(() => video.pause())
       .catch(() => {});
   }
+
+  function definirFrameInicialEstatico() {
+    if (video.readyState >= 1) {
+      video.currentTime = FRAME_INICIAL;
+    } else {
+      video.addEventListener('loadedmetadata', () => {
+        video.currentTime = FRAME_INICIAL;
+      }, { once: true });
+    }
+  }
+
+  definirFrameInicialEstatico();
 
   video.play()
     .then(() => hero.classList.add('is-playing'))
@@ -40,22 +55,25 @@
   });
 
   video.addEventListener('timeupdate', () => {
-    if (logoRevelada) return;
-
     if (isTouchDevice) {
-      // Mobile: ao chegar em 00:50, volta ao primeiro frame (esmaecido) com a logo sobreposta.
-      if (video.currentTime >= 50) {
+      // Mobile: o fade-in da logo começa aos 00:48, ainda com o vídeo tocando...
+      if (!logoFadeIniciada && video.currentTime >= 48) {
+        logoFadeIniciada = true;
+        logoWrapper.classList.add('visible');
+      }
+
+      // ...e aos 00:50 o vídeo pausa e volta ao primeiro frame (esmaecido).
+      if (!logoRevelada && video.currentTime >= 50) {
         logoRevelada = true;
         voltarAoFrameInicial();
         video.classList.add('video-dimmed');
         hero.classList.remove('is-playing');
-        logoWrapper.classList.add('visible');
       }
       return;
     }
 
     // Desktop: aos 47s a logo aparece sobreposta e o vídeo segue tocando até o fim.
-    if (video.currentTime >= 47) {
+    if (!logoRevelada && video.currentTime >= 47) {
       logoRevelada = true;
       logoWrapper.classList.add('visible');
     }
@@ -64,9 +82,10 @@
   heroLogo.addEventListener('click', () => {
     logoWrapper.classList.remove('visible');
     video.classList.remove('video-dimmed');
+    logoFadeIniciada = false;
     logoRevelada = false;
 
-    video.currentTime = 0;
+    video.currentTime = FRAME_INICIAL;
     iniciarReproducao();
   });
 })();
