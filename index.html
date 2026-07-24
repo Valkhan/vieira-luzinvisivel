@@ -87,7 +87,28 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=2">
+
+  <script>
+    /*
+     * iOS Safari expande/recolhe a barra de endereço e a barra inferior
+     * durante o scroll, então vh/dvh/svh/lvh puros nunca refletem com
+     * precisão a altura visível real em todos os momentos. Medimos
+     * window.innerHeight via JS e guardamos em --vh, atualizando sempre
+     * que a UI do navegador mudar de estado.
+     */
+    (function () {
+      function setVH() {
+        document.documentElement.style.setProperty('--vh', window.innerHeight + 'px');
+      }
+      setVH();
+      window.addEventListener('resize', setVH);
+      window.addEventListener('orientationchange', setVH);
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', setVH);
+      }
+    })();
+  </script>
 </head>
 <body>
 

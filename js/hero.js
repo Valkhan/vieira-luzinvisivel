@@ -7,7 +7,7 @@
 
   const isTouchDevice = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
 
-  const FRAME_INICIAL = 1; // 00:01 — frame em que a vaca aparece (00:00 não serve)
+  const FRAME_INICIAL = 0.5; // 00:00.500 — frame em que a vaca aparece (00:00 nem sempre renderiza)
 
   let logoFadeIniciada = false;
   let logoRevelada = false;
@@ -31,6 +31,13 @@
       .catch(() => {});
   }
 
+  function forcarRepaintFrameInicial() {
+    video.currentTime = FRAME_INICIAL;
+    video.play()
+      .then(() => video.pause())
+      .catch(() => {});
+  }
+
   function definirFrameInicialEstatico() {
     if (video.readyState >= 1) {
       video.currentTime = FRAME_INICIAL;
@@ -47,6 +54,10 @@
     .then(() => hero.classList.add('is-playing'))
     .catch(() => {
       playButton.classList.add('visible');
+      // Garante que o frame estático exibido enquanto se aguarda o toque
+      // do usuário seja realmente o frame com a vaca (e não um quadro
+      // preto não repintado).
+      forcarRepaintFrameInicial();
     });
 
   playButton.addEventListener('click', () => {
