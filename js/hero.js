@@ -79,6 +79,21 @@
     }
   });
 
+  video.addEventListener('click', () => {
+    if (video.paused) {
+      video.play();
+      hero.classList.add('is-playing');
+    } else {
+      video.pause();
+    }
+  });
+
+  video.addEventListener('ended', () => {
+    // Força o repaint do último quadro (vaca escura + logo) em navegadores
+    // que não renderizam o frame final ao chegar no fim do arquivo.
+    video.currentTime = Math.max(0, video.duration - 0.03);
+  });
+
   heroLogo.addEventListener('click', () => {
     logoWrapper.classList.remove('visible');
     video.classList.remove('video-dimmed');
