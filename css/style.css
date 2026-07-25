@@ -25,7 +25,7 @@ body {
   position: relative;
   width: 100%;
   height: 100vh;
-  height: var(--vh, 100svh);
+  height: max(var(--vh, 100svh), 620px);
   overflow: hidden;
   background: #000;
   scroll-snap-align: start;
@@ -127,7 +127,7 @@ body {
 #contato {
   position: relative;
   min-height: 100vh;
-  min-height: var(--vh, 100svh);
+  min-height: max(var(--vh, 100svh), 620px);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -315,6 +315,7 @@ body {
 }
 
 #site-footer {
+  display: none;
   position: relative;
   z-index: 2;
   text-align: center;
