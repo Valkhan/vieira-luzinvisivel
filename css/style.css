@@ -140,7 +140,7 @@ body {
   position: relative;
   z-index: 2;
   width: calc(100% + 12vw);
-  height: 11.11111vh; /* 120px em relação a 1080px */
+  height: 6.5vh; 
   background: #fff;
   flex-shrink: 0;
   display: flex;
@@ -359,7 +359,7 @@ body {
   #contato-heading {
     width: 100%;
     margin-left: 0;
-    font-size: clamp(1.25rem, 6vw, 1.75rem);
+    font-size: clamp(0.79rem, 3.77vw, 1.1rem);
     text-align: center;
   }
 }
