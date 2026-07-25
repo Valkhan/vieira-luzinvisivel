@@ -350,6 +350,11 @@ body {
 
   .contato-content #contact-form {
     width: 100%;
+    padding: 0 4vw;
+  }
+
+  #submit-button {
+    margin-right: 4px;
   }
 
   #contato-top-bar {
