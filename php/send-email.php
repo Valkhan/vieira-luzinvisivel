@@ -102,6 +102,7 @@ HTML;
 $payload = json_encode([
     'from' => 'A Luz Invisível <site@luzinvisivel.com>',
     'to' => [RESEND_TO_EMAIL],
+    'cc' => ['antero@luzinvisivel.com'],
     'reply_to' => $email,
     'subject' => 'Novo contato — a luz invisível',
     'text' => "Nome: {$nome}\nE-mail: {$email}\n\nMensagem:\n{$mensagem}",
