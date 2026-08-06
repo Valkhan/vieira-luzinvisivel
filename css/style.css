@@ -125,9 +125,13 @@ body {
 
 /* ─── SEÇÃO 2 — CONTATO ─── */
 #contato {
+  --logo-w: clamp(63.35px, 7vw, 134.4px);
+  --logo-h: calc(var(--logo-w) * 150 / 203);
+  --logo-mb: clamp(39.6px, 4.63889vh, 82.5px);
+
   position: relative;
-  min-height: 100vh;
-  min-height: max(var(--vh, 100svh), 620px);
+  height: 100vh;
+  height: max(var(--vh, 100svh), 620px);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -197,17 +201,18 @@ body {
   z-index: 2;
   width: 100%;
   max-width: 900px;
-  margin-top: 24.53704vh; /* 265px em relação a 1080px */
+  /* 24.53704vh (265px em relação a 1080px) descontando a altura real da logo + sua margem */
+  margin-top: calc(24.53704vh - var(--logo-h) - var(--logo-mb));
 }
 
 .contato-logo {
   display: flex;
   justify-content: center;
-  margin-bottom: clamp(39.6px, 4.63889vh, 82.5px); /* 50.1px em relação a 1920x1080 */
+  margin-bottom: var(--logo-mb);
 }
 
 .contato-logo img {
-  width: clamp(63.35px, 7vw, 134.4px); /* 134.4px em relação a 1920x1080 */
+  width: var(--logo-w);
   height: auto;
   aspect-ratio: 203 / 150;
   display: block;
@@ -345,6 +350,11 @@ body {
 }
 
 @media (max-width: 640px) {
+  #contato {
+    --logo-w: clamp(48px, 16vw, 90px);
+    --logo-mb: clamp(16px, 3vh, 32px);
+  }
+
   .form-row {
     flex-direction: column;
     gap: 36px;
@@ -358,6 +368,7 @@ body {
   .contato-content {
     margin-top: 0;
     flex: 1;
+    min-height: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
