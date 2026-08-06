@@ -200,6 +200,19 @@ body {
   margin-top: 24.53704vh; /* 265px em relação a 1080px */
 }
 
+.contato-logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: clamp(39.6px, 4.63889vh, 82.5px); /* 50.1px em relação a 1920x1080 */
+}
+
+.contato-logo img {
+  width: clamp(63.35px, 7vw, 134.4px); /* 134.4px em relação a 1920x1080 */
+  height: auto;
+  aspect-ratio: 203 / 150;
+  display: block;
+}
+
 #contact-form {
   display: flex;
   flex-direction: column;
@@ -346,7 +359,9 @@ body {
     margin-top: 0;
     flex: 1;
     display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
   }
 
   .contato-content #contact-form {
